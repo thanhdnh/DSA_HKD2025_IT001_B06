@@ -1,4 +1,6 @@
-﻿public class Node
+﻿using System.Runtime.Intrinsics.Arm;
+
+public class Node
 {
     public object data;
     public Node link;
@@ -147,7 +149,28 @@ public class DoubleLinkedList
             current = current.blink;
         }
     }
-
+    public int Count()
+    {
+        Node2 current = FindLast();
+        int count = 0;
+        while (current != header)
+        {
+            count++;
+            current = current.blink;
+        }
+        return count;
+    }
+    public int Sum()
+    {
+        int sum = 0;
+        Node2 current = FindLast();
+        while (current != header)
+        {
+            sum += Convert.ToInt32(current.element);
+            current = current.blink;
+        }
+        return sum;
+    }
 }
 
 
@@ -162,9 +185,9 @@ public class Program
         list.Insert("44", "56");
         list.Print();
         Console.WriteLine("====");
-        //Console.WriteLine(list.Count());
-        //Console.WriteLine(list.Sum());
-        list.Remove("56");
-        list.Print();
+        Console.WriteLine(list.Count());
+        Console.WriteLine(list.Sum());
+        //list.Remove("56");
+        //list.Print();
     }
 }
